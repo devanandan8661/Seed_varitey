@@ -3,8 +3,11 @@ import 'package:get/get.dart';
 import 'package:seed_detector/models/model.dart';
 import 'package:seed_detector/screens/home.dart';
 import 'package:seed_detector/controllers/esp_controller.dart';
+import 'package:seed_detector/screens/seed_details.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await preloadSeedDetails();
   runApp(MyApp());
 }
 
@@ -28,6 +31,3 @@ class MyApp extends StatelessWidget {
     );
   }
 }
-
-
-

@@ -28,4 +28,5 @@ flutter:
   assets:
     - assets/model_unquant.tflite
     - assets/labels.txt
+    - assets/seed_descriptions.json
 

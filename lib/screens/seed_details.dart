@@ -19,13 +19,18 @@ class SeedDetailsPage extends StatelessWidget {
     }
 
     return Scaffold(
-      appBar: AppBar(title: Text("$seedName Details")),
+      appBar: AppBar(
+        title: Text(
+          "$seedName Details",
+        ),
+      ),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
           Text("Ideal NPK: ${details.idealNPK}"),
           Text("Growth Conditions: ${details.growthConditions}"),
-          Text("Commonly Grown Areas: ${details.commonlyGrownAreas.join(', ')}"),
+          Text(
+              "Commonly Grown Areas: ${details.commonlyGrownAreas.join(', ')}"),
           Text("Soil Type: ${details.soilType}"),
           Text("Soil Conditions: ${details.soilConditions}"),
         ],
@@ -39,7 +44,8 @@ late Map<String, SeedDetails> seedDetailsCache = {};
 Future<void> preloadSeedDetails() async {
   debugPrint("preloaddetails called");
   try {
-    final String response = await rootBundle.loadString('assets/seed_descriptions.json');
+    final String response =
+        await rootBundle.loadString('assets/seed_descriptions.json');
     final List<dynamic> data = json.decode(response);
 
     seedDetailsCache = {
@@ -50,10 +56,10 @@ Future<void> preloadSeedDetails() async {
     print("Seed details loaded successfully: $seedDetailsCache");
   } catch (e) {
     print("Error loading seed details: $e");
-    seedDetailsCache = {}; // Ensure seedDetailsCache is initialized as an empty map.
+    seedDetailsCache =
+        {}; // Ensure seedDetailsCache is initialized as an empty map.
   }
 }
-
 
 class SeedDetails {
   final String idealNPK;
@@ -72,26 +78,11 @@ class SeedDetails {
 
   factory SeedDetails.fromJson(Map<String, dynamic> json) {
     return SeedDetails(
-      idealNPK: json['idealNPK'],
-      growthConditions: json['growthConditions'],
-      commonlyGrownAreas: List<String>.from(json['commonlyGrownAreas']),
-      soilType: json['soilType'],
-      soilConditions: json['soilConditions'],
+      idealNPK: json['idealNPK'] ?? "N/A",
+      growthConditions: json['growthConditions'] ?? "N/A",
+      commonlyGrownAreas: List<String>.from(json['commonlyGrownAreas'] ?? []),
+      soilType: json['soilType'] ?? "N/A",
+      soilConditions: json['soilConditions'] ?? "N/A",
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
