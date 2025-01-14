@@ -1,0 +1,24 @@
+[
+    {
+      "className": "0 Navara",
+      "details": {
+        "idealNPK": "10:20:10",
+        "growthConditions": "Humid and warm climate",
+        "soilType": "Loamy",
+        "soilConditions": "Well-drained, fertile soil with adequate moisture retention"
+      }
+    },
+    {
+      "className": "1 16 mani payar",
+      
+      "details": {
+        "idealNPK": "15:15:15",
+        "growthConditions": "Cool climate with moderate temperatures",
+        "soilType": "Clayey",
+        "soilConditions": "Nutrient-rich soil with good water-holding capacity"
+      }
+    }
+   
+  ]
+  
+  
