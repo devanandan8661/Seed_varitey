@@ -5,17 +5,19 @@ import 'package:seed_detector/controllers/esp_controller.dart';
 import 'package:seed_detector/screens/seed_details.dart';
 
 class HomeScreen extends StatelessWidget {
-  const HomeScreen({super.key});
+  const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final ModelController mdl = Get.find<ModelController>();
-    final ESPController esp = Get.find<ESPController>();
+    final ModelController modelController = Get.find<ModelController>();
+    final ESPController espController = Get.find<ESPController>();
 
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
           title: const Text("Seed Detector"),
+          backgroundColor: Colors.green,
+          foregroundColor: Colors.white,
         ),
         body: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
@@ -24,33 +26,46 @@ class HomeScreen extends StatelessWidget {
             children: [
               // Image Detection Section
               Obx(() {
-                return mdl.pickedImage.value != null
-                    ? Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.width * 0.8,
-                        decoration: BoxDecoration(
-                          border: Border.all(color: Colors.grey),
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(12),
-                          child: Image.file(
-                            mdl.pickedImage.value!,
-                            fit: BoxFit.cover,
+                return modelController.pickedImage.value != null
+                    ? Card(
+                        color: Colors.white,
+                        elevation: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(12),
+                                child: Image.file(
+                                  modelController.pickedImage.value!,
+                                  fit: BoxFit.cover,
+                                  width: double.infinity,
+                                  height: 200,
+                                ),
+                              ),
+                              SizedBox(height: 10),
+                              Text(
+                                'Selected Image',
+                                style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.black),
+                              ),
+                            ],
                           ),
                         ),
                       )
-                    : Container(
-                        width: MediaQuery.of(context).size.width * 0.8,
-                        height: MediaQuery.of(context).size.width * 0.8,
-                        decoration: BoxDecoration(
-                          color: Colors.grey[200],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Center(
-                          child: Text(
-                            'No Image Selected',
-                            style: TextStyle(color: Colors.grey[600]),
+                    : Card(
+                        color: Colors.white,
+                        elevation: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              Icon(Icons.image_not_supported, size: 100, color: Colors.grey),
+                              SizedBox(height: 10),
+                              Text(
+                                'No Image Selected',
+                                style: Theme.of(context).textTheme.bodyLarge!.copyWith(color: Colors.black),
+                              ),
+                            ],
                           ),
                         ),
                       );
@@ -59,63 +74,70 @@ class HomeScreen extends StatelessWidget {
               const SizedBox(height: 20),
 
               // Upload Image Button
-              IconButton(
-                onPressed: () async {
-                  mdl.showImagePickerDialog();
-                },
-                icon: const Icon(
-                  Icons.upload,
-                  size: 50,
-                  color: Colors.blue,
-                ),
+              ElevatedButton(
+                onPressed: () => modelController.showImagePickerDialog(),
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green,
+                foregroundColor: Colors.white),
+                child: const Text("Upload Image"),
               ),
 
               const SizedBox(height: 20),
 
               // Display Classification Results
               Obx(() {
-                return mdl.predictionResult.value != null
-                    ? Column(
-                        children: [
-                          Text(
-                            "Detected: ${mdl.predictionResult.value}",
-                            style: const TextStyle(
-                                fontSize: 18, fontWeight: FontWeight.bold),
+                return modelController.predictionResult.value != null
+                    ? Card(
+                        color: Colors.white,
+                        elevation: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              Text(
+                                "Detected: ${modelController.predictionResult.value}",
+                                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color: Colors.black),
+                              ),
+                              const SizedBox(height: 10),
+                              ElevatedButton(
+                                onPressed: () {
+                                  String seedName = modelController.predictionResult.value!;
+                                  Get.to(() => SeedDetailsPage(seedName: seedName));
+                                },
+                                style: ElevatedButton.styleFrom(backgroundColor: Colors.green,
+                                foregroundColor: Colors.white),
+                                child: const Text("Click for More Details"),
+                              ),
+                            ],
                           ),
-                          const SizedBox(height: 10),
-                          ElevatedButton(
-                            onPressed: () {
-                              String seedName = mdl.predictionResult.value!
-                                  .split(RegExp(r'\s+\('))[0];
-                                  debugPrint(seedName);
-                              Get.to(() => SeedDetailsPage(seedName: seedName));
-                            },
-                            child: const Text("Click for More Details"),
-                          ),
-                        ],
+                        ),
                       )
                     : const SizedBox.shrink();
               }),
 
               const SizedBox(height: 30),
-
               const Divider(),
 
               // ESP32 Data Section
               Obx(() {
-                return esp.responseMessage.isNotEmpty
-                    ? Column(
-                        children: [
-                          const Text(
-                            "ESP32 Response:",
-                            style: TextStyle(
-                                fontSize: 16, fontWeight: FontWeight.bold),
+                return espController.responseMessage.isNotEmpty
+                    ? Card(
+                        color: Colors.white,
+                        elevation: 4,
+                        child: Padding(
+                          padding: const EdgeInsets.all(16),
+                          child: Column(
+                            children: [
+                              const Text(
+                                "ESP32 Response:",
+                                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black),
+                              ),
+                              Text(
+                                espController.responseMessage.value,
+                                style: const TextStyle(fontSize: 14, color: Colors.black),
+                              ),
+                            ],
                           ),
-                          Text(
-                            esp.responseMessage.value,
-                            style: const TextStyle(fontSize: 14),
-                          ),
-                        ],
+                        ),
                       )
                     : const Text("No data from ESP32.");
               }),
@@ -124,13 +146,15 @@ class HomeScreen extends StatelessWidget {
 
               ElevatedButton(
                 onPressed: () {
-                  esp.fetchResponse();
+                  espController.fetchResponse();
                   Get.snackbar(
                     "Fetching Data",
                     "Please wait while ESP32 data is being fetched.",
                     snackPosition: SnackPosition.BOTTOM,
                   );
                 },
+                style: ElevatedButton.styleFrom(backgroundColor: Colors.green,
+                foregroundColor: Colors.white),
                 child: const Text("Fetch ESP32 Response"),
               ),
             ],
@@ -140,6 +164,10 @@ class HomeScreen extends StatelessWidget {
     );
   }
 }
+
+
+
+
 
 
 

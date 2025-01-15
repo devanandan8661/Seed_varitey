@@ -1,5 +1,5 @@
-import 'dart:convert';
-import 'package:flutter/services.dart'; // Required for loading JSON from assets
+import 'package:flutter/services.dart';
+import 'package:seed_detector/screens/seed_details.dart'; // Required for loading JSON from assets
 
 class SeedDescription {
   final String className;
@@ -16,42 +16,16 @@ class SeedDescription {
   }
 }
 
-class SeedDetails {
-  final String idealNPK;
-  final String growthConditions;
-  final List<String> commonlyGrownAreas;
-  final String soilType;
-  final String soilConditions;
+// Function to load labels from a text file
+Future<List<String>> loadLabels() async {
+  final String rawLabels = await rootBundle.loadString('assets/labels.txt');
+  // Split the file content into lines
+  final List<String> lines = rawLabels.split('\n');
+  
+  // Remove numerical prefixes
+return lines.map((line) {
+  return line.trim(); // Keeping the full line as it is
+}).toList();
 
-  SeedDetails({
-    required this.idealNPK,
-    required this.growthConditions,
-    required this.commonlyGrownAreas,
-    required this.soilType,
-    required this.soilConditions,
-  });
-
-  // Factory method to create an object from JSON
-  factory SeedDetails.fromJson(Map<String, dynamic> json) {
-    return SeedDetails(
-      idealNPK: json['idealNPK'],
-      growthConditions: json['growthConditions'],
-      commonlyGrownAreas: List<String>.from(json['commonlyGrownAreas']),
-      soilType: json['soilType'],
-      soilConditions: json['soilConditions'],
-    );
-  }
-}
-
-// Function to load the JSON file from assets and parse it
-Future<List<SeedDescription>> loadSeedDescriptions() async {
-  // Load the JSON file from assets
-  final String response = await rootBundle.loadString('assets/seed_descriptions.json');
-
-  // Parse the JSON data into a list of maps
-  final List<dynamic> data = jsonDecode(response);
-
-  // Map the JSON data to a list of SeedDescription objects
-  return data.map((json) => SeedDescription.fromJson(json)).toList();
 }
 

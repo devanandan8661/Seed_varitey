@@ -1,22 +1,53 @@
 [
-  {
-      "className": "0 Navara",
+    {
+      "className": "Navara",
       "details": {
-          "idealNPK": "10:20:10",
-          "growthConditions": "Humid and warm climate",
-          "commonlyGrownAreas": ["Kerala", "Tamil Nadu"],
-          "soilType": "Loamy",
-          "soilConditions": "Well-drained, fertile soil with adequate moisture retention"
+        "idealNPK": "10:20:10",
+        "growthConditions": "Humid and warm climate",
+        "commonlyGrownAreas": ["Kerala", "Tamil Nadu"],
+        "soilType": "Loamy",
+        "soilConditions": "Well-drained, fertile soil with adequate moisture retention"
       }
-  },
-  {
-      "className": "1 16 mani payar",
+    },
+    {
+      "className": "16 mani payar",
       "details": {
-          "idealNPK": "15:15:15",
-          "growthConditions": "Cool climate with moderate temperatures",
-          "commonlyGrownAreas": ["Karnataka", "Andhra Pradesh"],
-          "soilType": "Clayey",
-          "soilConditions": "Nutrient-rich soil with good water-holding capacity"
+        "idealNPK": "15:15:15",
+        "growthConditions": "Cool climate with moderate temperatures",
+        "commonlyGrownAreas": ["Karnataka", "Andhra Pradesh"],
+        "soilType": "Clayey",
+        "soilConditions": "Nutrient-rich soil with good water-holding capacity"
       }
-  }
-]
+    },
+    {
+      "className": "Karkoonthal Payar",
+      "details": {
+        "idealNPK": "12:18:12",
+        "growthConditions": "Moderate temperatures with adequate rainfall",
+        "commonlyGrownAreas": ["Kerala", "Tamil Nadu"],
+        "soilType": "Sandy Loam",
+        "soilConditions": "Well-drained soil with medium fertility and good organic matter"
+      }
+    },
+    {
+      "className": "Pournami",
+      "details": {
+        "idealNPK": "20:25:15",
+        "growthConditions": "Tropical climate with high humidity",
+        "commonlyGrownAreas": ["Kerala", "Karnataka"],
+        "soilType": "Clay Loam",
+        "soilConditions": "Moist, nutrient-rich soil with good aeration"
+      }
+    },
+    {
+      "className": "PB6",
+      "details": {
+        "idealNPK": "18:22:16",
+        "growthConditions": "Warm climate with consistent sunlight",
+        "commonlyGrownAreas": ["Tamil Nadu", "Andhra Pradesh"],
+        "soilType": "Alluvial",
+        "soilConditions": "Fertile, well-drained soil with adequate moisture retention"
+      }
+    }
+  ]
+  
