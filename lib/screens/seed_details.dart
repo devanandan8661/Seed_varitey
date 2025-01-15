@@ -20,30 +20,20 @@ class SeedDetailsPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text("$seedName Details"),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Card(
-          elevation: 4,
-          child: Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text("Ideal NPK: ${details.idealNPK}", style: Theme.of(context).textTheme.bodyLarge),
-                SizedBox(height: 8),
-                Text("Growth Conditions: ${details.growthConditions}", style: Theme.of(context).textTheme.bodyLarge),
-                SizedBox(height: 8),
-                Text("Commonly Grown Areas: ${details.commonlyGrownAreas.join(', ')}", style: Theme.of(context).textTheme.bodyLarge),
-                SizedBox(height: 8),
-                Text("Soil Type: ${details.soilType}", style: Theme.of(context).textTheme.bodyLarge),
-                SizedBox(height: 8),
-                Text("Soil Conditions: ${details.soilConditions}", style: Theme.of(context).textTheme.bodyLarge),
-              ],
-            ),
-          ),
+        title: Text(
+          "$seedName Details",
         ),
+      ),
+      body: ListView(
+        padding: const EdgeInsets.all(16),
+        children: [
+          Text("Ideal NPK: ${details.idealNPK}"),
+          Text("Growth Conditions: ${details.growthConditions}"),
+          Text(
+              "Commonly Grown Areas: ${details.commonlyGrownAreas.join(', ')}"),
+          Text("Soil Type: ${details.soilType}"),
+          Text("Soil Conditions: ${details.soilConditions}"),
+        ],
       ),
     );
   }
@@ -52,8 +42,10 @@ class SeedDetailsPage extends StatelessWidget {
 late Map<String, SeedDetails> seedDetailsCache = {};
 
 Future<void> preloadSeedDetails() async {
+  debugPrint("preloaddetails called");
   try {
-    final String response = await rootBundle.loadString('assets/seed_descriptions.json');
+    final String response =
+        await rootBundle.loadString('assets/seed_descriptions.json');
     final List<dynamic> data = json.decode(response);
 
     seedDetailsCache = {
@@ -64,7 +56,8 @@ Future<void> preloadSeedDetails() async {
     print("Seed details loaded successfully: $seedDetailsCache");
   } catch (e) {
     print("Error loading seed details: $e");
-    seedDetailsCache = {}; // Ensure seedDetailsCache is initialized as an empty map.
+    seedDetailsCache =
+        {}; // Ensure seedDetailsCache is initialized as an empty map.
   }
 }
 
@@ -93,6 +86,7 @@ class SeedDetails {
     );
   }
 }
+
 
 
 
